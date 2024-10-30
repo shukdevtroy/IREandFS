@@ -1,4 +1,3 @@
-%%writefile app.py
 import os
 import sys
 import cv2
@@ -123,16 +122,18 @@ def main():
             img2_enhanced = upscaler(img2_swapped, version, scale)
 
             if img1_enhanced is not None:
-                st.image(img1_enhanced, caption="Enhanced Source with Target Face", use_column_width=True)
+                st.image(cv2.cvtColor(img1_enhanced, cv2.COLOR_BGR2RGB), caption="Enhanced Source with Target Face", use_column_width=True)
                 enhanced_temp_1 = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
-                cv2.imwrite(enhanced_temp_1.name, img1_enhanced)
+                # Convert back to BGR before saving
+                cv2.imwrite(enhanced_temp_1.name, cv2.cvtColor(img1_enhanced, cv2.COLOR_RGB2BGR))
                 with open(enhanced_temp_1.name, "rb") as f:
                     st.download_button("Download Enhanced Source with Target Face", f, file_name="enhanced_source_with_target_face.jpg", mime="image/jpeg")
 
             if img2_enhanced is not None:
-                st.image(img2_enhanced, caption="Enhanced Target with Source Face", use_column_width=True)
+                st.image(cv2.cvtColor(img2_enhanced, cv2.COLOR_BGR2RGB), caption="Enhanced Target with Source Face", use_column_width=True)
                 enhanced_temp_2 = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
-                cv2.imwrite(enhanced_temp_2.name, img2_enhanced)
+                # Convert back to BGR before saving
+                cv2.imwrite(enhanced_temp_2.name, cv2.cvtColor(img2_enhanced, cv2.COLOR_RGB2BGR))
                 with open(enhanced_temp_2.name, "rb") as f:
                     st.download_button("Download Enhanced Target with Source Face", f, file_name="enhanced_target_with_source_face.jpg", mime="image/jpeg")
 
