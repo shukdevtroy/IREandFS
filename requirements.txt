@@ -1,0 +1,10 @@
+opencv-python
+torch
+torchvision
+streamlit
+basicSR
+gfpgan
+realesrgan
+matplotlib
+insightface
+onnxruntime
